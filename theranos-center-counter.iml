@@ -8,5 +8,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jsoup-1.8.2" level="project" />
+    <orderEntry type="library" name="selenium-java-2.45.0" level="project" />
+    <orderEntry type="library" name="libs" level="project" />
+    <orderEntry type="library" name="selenium-java-2.45.0-srcs" level="project" />
   </component>
 </module>

@@ -1,8 +1,14 @@
 package theranos_counter;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import theranos_counter.main.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +23,7 @@ public class Main extends Application {
     public Controller_main controller_main;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("main/fx_main.fxml").openStream());
         primaryStage.setTitle("Theranos Center Counter");
@@ -25,27 +31,30 @@ public class Main extends Application {
         primaryStage.show();
 
         controller_main = fxmlLoader.getController();
-        controller_main.refresh();
+
         getCenters();
+
+        controller_main.refresh();
     }
 
     private void getCenters()
     {
-        try {
-            Connection.Response response= Jsoup.connect("https://www.theranos.com/centers")
-                    .ignoreContentType(true)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com")
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .execute();
+        HtmlUnitDriver d = new HtmlUnitDriver(BrowserVersion.FIREFOX_24);
+        d.setJavascriptEnabled(true);
+        d.get("https://theranos.com/centers");
 
-            Document doc = response.parse();
+        Document doc;
+        do {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+
+            doc = Jsoup.parse(d.getPageSource());
+
             System.out.println(doc.body());
-        }catch (IOException e)
-        {
-            System.out.println("Error getting site");
-        }
+            System.out.println(doc.getElementsByClass("modal-body").get(0).data() );
+        } while (doc.getElementsByAttribute("h6").get(0).data() == "hi");
 
     }
 

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="selenium-java-2.45.0-srcs">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/selenium-java-2.45.0-srcs.jar!/" />
+    </SOURCES>
+  </library>
+</component>
