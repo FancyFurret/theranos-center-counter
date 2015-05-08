@@ -30,6 +30,12 @@ public class Preloader {
         Scene scene = new Scene(layout, 250, 100);
 
         loadStage.setScene(scene);
+        loadStage.setResizable(false);
+        loadStage.setAlwaysOnTop(true);
+        loadStage.setMinHeight(100);
+        loadStage.setMinWidth(250);
+        loadStage.setMaxHeight(100);
+        loadStage.setMaxWidth(250);
         loadStage.show();
     }
 

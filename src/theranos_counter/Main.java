@@ -8,9 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import theranos_counter.center_data.CenterData;
+import theranos_counter.center_data.State;
 import theranos_counter.main.Controller_main;
 import theranos_counter.preloader.Preloader;
 
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,8 +22,11 @@ public class Main extends Application {
 
     public Controller_main controller_main;
     public CenterData centerData;
+    public CenterData oldCenterData;
 
     public Stage primaryStage;
+
+    String fileName = "savedCount";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -67,6 +72,51 @@ public class Main extends Application {
         centerData = d.get();
         controller_main = fxmlLoader.getController();
         controller_main.refresh(centerData);
+
+        saveCenterCount();
+    }
+
+    public CenterData loadCenterCount()
+    {
+        CenterData data = new CenterData();
+
+        try {
+            FileReader fr = new FileReader(fileName);
+            BufferedReader br = new BufferedReader(fr);
+
+            String line = br.readLine();
+
+            while (line != null)
+            {
+                
+            }
+
+            return centerData;
+
+        } catch (IOException e) {
+            System.out.println("Unable to open count file");
+        }
+
+        return null;
+    }
+
+    public void saveCenterCount(CenterData data)
+    {
+        try {
+            FileWriter fw = new FileWriter(fileName, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            for (State state : centerData.states) {
+                System.out.println(centerData.getTotalFrom(state));
+                bw.write(String.valueOf(centerData.getTotalFrom(state)));
+                bw.newLine();
+            }
+            bw.close();
+
+        } catch (IOException e)
+        {
+            System.out.println("Error writing counts to file");
+        }
     }
 
     public static void main(String[] args) {

@@ -28,4 +28,25 @@ public class CenterData {
 
         return total;
     }
+
+    public int getTotalFrom(State state)
+    {
+        int total = 0;
+
+        for (City c : state.cities)
+            for (Address a : c.addresses)
+                total++;
+
+        return total;
+    }
+
+    public int getTotalFrom(City city)
+    {
+        int total = 0;
+
+        for (Address a : city.addresses)
+            total++;
+
+        return total;
+    }
 }

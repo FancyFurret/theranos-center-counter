@@ -32,10 +32,11 @@ public class WebHandler {
         // Wait for webpage to fully load
         Document doc;
         do {
+            System.out.println("Waiting for javascript...");
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {}
-        } while (countLines(d.getPageSource()) < 1500);
+        } while (countLines(d.getPageSource()) < 2000);
 
         // Analyze page
         doc = Jsoup.parse(d.getPageSource());

@@ -1,17 +1,18 @@
 package theranos_counter.main;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
 import theranos_counter.Main;
 import theranos_counter.about.Controller_about;
-import theranos_counter.center_data.*;
+import theranos_counter.center_data.Address;
+import theranos_counter.center_data.CenterData;
+import theranos_counter.center_data.City;
+import theranos_counter.center_data.State;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,17 +35,7 @@ public class Controller_main implements Initializable {
                 addressLine1.setText(address.name);
                 addressLine2.setText(address.city + ", " + address.state + " " + address.zip);
                 hyperlink.setText("View center details");
-                hyperlink.setOnAction(e ->
-                {
-                    try {
-                        Desktop.getDesktop().browse(new URI("https://theranos.com/centers"));
-                    } catch (URISyntaxException ex) {
-                        System.out.println("Invalid URL");
-                    } catch (IOException exe)
-                    {
-                        System.out.println("IO exception");
-                    }
-                });
+                hyperlink.setOnAction(e -> openURL(address.url));
             }
             else
             {
@@ -59,16 +50,16 @@ public class Controller_main implements Initializable {
     public void refresh(CenterData data) {
         centerData = data;
 
-        TreeItem<String> rootItem = new TreeItem<>("Cities");
+        TreeItem<String> rootItem = new TreeItem<>("States" + getTotalStr(data.getTotal()));
         rootItem.setExpanded(true);
 
         for (State state : data.states)
         {
-            TreeItem<String> stateItem = new TreeItem<>(state.name);
+            TreeItem<String> stateItem = new TreeItem<>(state.name + getTotalStr(data.getTotalFrom(state)));
 
             for (City city : state.cities)
             {
-                TreeItem<String> cityItem = new TreeItem<>(city.name);
+                TreeItem<String> cityItem = new TreeItem<>(city.name + getTotalStr(data.getTotalFrom(city)));
 
                 for (Address address : city.addresses)
                 {
@@ -85,6 +76,11 @@ public class Controller_main implements Initializable {
         total.setText(String.valueOf(data.getTotal()));
     }
 
+    private String getTotalStr(int i)
+    {
+        return " (" + i + ")";
+    }
+
     public void onAboutClick()
     {
         new Controller_about().show();
@@ -98,5 +94,47 @@ public class Controller_main implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void openURL(String URL)
+    {
+        System.out.println("Opening URL: " + URL);
+        String url = URL;
+        String os = System.getProperty("os.name").toLowerCase();
+        Runtime rt = Runtime.getRuntime();
+
+        try{
+
+            if (os.indexOf( "win" ) >= 0) {
+
+                // this doesn't support showing urls in the form of "page.html#nameLink"
+                rt.exec( "rundll32 url.dll,FileProtocolHandler " + url);
+
+            } else if (os.indexOf( "mac" ) >= 0) {
+
+                rt.exec( "open " + url);
+
+            } else if (os.indexOf( "nix") >=0 || os.indexOf( "nux") >=0) {
+
+                // Do a best guess on unix until we get a platform independent way
+                // Build a list of browsers to try, in this order.
+                String[] browsers = {"chromium", "epiphany", "firefox", "mozilla", "konqueror",
+                        "netscape","opera","links","lynx"};
+
+                // Build a command string which looks like "browser1 "url" || browser2 "url" ||..."
+                StringBuffer cmd = new StringBuffer();
+                for (int i=0; i<browsers.length; i++)
+                    cmd.append( (i==0  ? "" : " || " ) + browsers[i] +" \"" + url + "\" ");
+
+                rt.exec(new String[] { "sh", "-c", cmd.toString() });
+
+            } else {
+                return;
+            }
+        }catch (Exception e){
+            System.out.println("Error opening URL");
+            return;
+        }
+        return;
     }
 }
