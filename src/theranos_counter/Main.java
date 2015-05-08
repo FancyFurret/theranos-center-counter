@@ -1,64 +1,81 @@
 package theranos_counter;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.*;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import theranos_counter.main.*;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import theranos_counter.center_data.CenterData;
+import theranos_counter.main.Controller_main;
+import theranos_counter.preloader.Preloader;
 
-import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends Application {
 
+    public static Main inst;
+
     public Controller_main controller_main;
+    public CenterData centerData;
+
+    public Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("main/fx_main.fxml").openStream());
+        inst = this;
+
+        shutHtmlUnitUp();
+
+        this.primaryStage = primaryStage;
+        primaryStage.close();
         primaryStage.setTitle("Theranos Center Counter");
-        primaryStage.setScene(new Scene(root, 750, 500));
-        primaryStage.show();
 
-        controller_main = fxmlLoader.getController();
+        final Task<CenterData> task = new Task<CenterData>() {
+            @Override
+            protected CenterData call() throws Exception {
+                System.out.println("Getting site...");
+                CenterData data = WebHandler.getCenters();
+                return data;
+            }
+        };
 
-        getCenters();
+        Preloader.show(() -> {
+            try {
+                showMain(task.valueProperty());
+            } catch (Exception e) {
+                System.out.println("Can't get CenterData");
+            }
+        }, task);
 
-        controller_main.refresh();
+        new Thread(task).start();
     }
 
-    private void getCenters()
+    public void showMain(ReadOnlyObjectProperty<CenterData> d) throws Exception
     {
-        HtmlUnitDriver d = new HtmlUnitDriver(BrowserVersion.FIREFOX_24);
-        d.setJavascriptEnabled(true);
-        d.get("https://theranos.com/centers");
+        Preloader.close();
 
-        Document doc;
-        do {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-            }
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("main/fx_main.fxml").openStream());
+        primaryStage.setScene(new Scene(root, 750, 500));
+        primaryStage.setMinHeight(400);
+        primaryStage.setMinWidth(500);
+        primaryStage.show();
 
-            doc = Jsoup.parse(d.getPageSource());
-
-            System.out.println(doc.body());
-            System.out.println(doc.getElementsByClass("modal-body").get(0).data() );
-        } while (doc.getElementsByAttribute("h6").get(0).data() == "hi");
-
+        centerData = d.get();
+        controller_main = fxmlLoader.getController();
+        controller_main.refresh(centerData);
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void shutHtmlUnitUp()
+    {
+        Logger logger = Logger.getLogger("");
+        logger.setLevel(Level.OFF);
     }
 }

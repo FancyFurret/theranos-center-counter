@@ -4,24 +4,56 @@
 <?import javafx.scene.layout.*?>
 
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
 <BorderPane fx:controller="theranos_counter.main.Controller_main" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <center>
-        <TreeView fx:id="treeView"/>
+        <SplitPane dividerPositions=".7">
+            <items>
+                <TreeView fx:id="treeView"/>
+                <BorderPane minWidth="150" maxWidth="500" >
+                    <top>
+                        <VBox alignment="TOP_CENTER" spacing="10">
+                            <padding><Insets top="25" bottom="25"/></padding>
+                            <Label fx:id="addressLine1" text="Select an address"/>
+                            <Label fx:id="addressLine2" />
+                            <Hyperlink fx:id="hyperlink" />
+                        </VBox>
+                    </top>
+
+                    <bottom>
+                        <VBox alignment="BOTTOM_CENTER" spacing="10">
+                            <padding><Insets top="25" bottom="25"/></padding>
+                            <Label text="Total centers:">
+                                <font>
+                                    <Font size="25"/>
+                                </font>
+                            </Label>
+                            <Label fx:id="total">
+                                <font>
+                                    <Font size="125"/>
+                                </font>
+                            </Label>
+                        </VBox>
+                    </bottom>
+                </BorderPane>
+            </items>
+        </SplitPane>
     </center>
     <top>
         <MenuBar>
             <menus>
-                <Menu text="Help">
+                <Menu text="About">
                     <items>
-                        <MenuItem text="About" />
+                        <MenuItem text="About" onAction="#onAboutClick"/>
+                    </items>
+                </Menu>
+                <Menu text="Refresh">
+                    <items>
+                        <MenuItem text="Refresh" onAction="#onRefreshClick"/>
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
     </top>
-    <bottom>
-        <Label>
-            <text>Test</text>
-        </Label>
-    </bottom>
 </BorderPane>

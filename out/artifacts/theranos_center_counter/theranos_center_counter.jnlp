@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="theranos_center_counter.jnlp">
+  <information>
+    <title>Hi</title>
+    <vendor>8-Bit Forest</vendor>
+    <description>Sample JavaFX 2.0 application.</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="apache-mime4j-0.6.jar" size="345048" download="eager" />
+    <jar href="bsh-1.3.0.jar" size="242154" download="eager" />
+    <jar href="cglib-nodep-2.1_3.jar" size="324238" download="eager" />
+    <jar href="commons-codec-1.9.jar" size="263965" download="eager" />
+    <jar href="commons-collections-3.2.1.jar" size="575389" download="eager" />
+    <jar href="commons-exec-1.1.jar" size="52543" download="eager" />
+    <jar href="commons-io-2.4.jar" size="185140" download="eager" />
+    <jar href="commons-jxpath-1.3.jar" size="299994" download="eager" />
+    <jar href="commons-lang3-3.3.2.jar" size="412739" download="eager" />
+    <jar href="commons-logging-1.1.3.jar" size="62050" download="eager" />
+    <jar href="cssparser-0.9.14.jar" size="354647" download="eager" />
+    <jar href="gson-2.3.1.jar" size="210856" download="eager" />
+    <jar href="guava-18.0.jar" size="2256213" download="eager" />
+    <jar href="hamcrest-core-1.3.jar" size="45024" download="eager" />
+    <jar href="hamcrest-library-1.3.jar" size="53070" download="eager" />
+    <jar href="htmlunit-2.15.jar" size="1452628" download="eager" />
+    <jar href="htmlunit-core-js-2.15.jar" size="1026253" download="eager" />
+    <jar href="httpclient-4.3.6.jar" size="592008" download="eager" />
+    <jar href="httpcore-4.3.3.jar" size="282793" download="eager" />
+    <jar href="httpmime-4.3.6.jar" size="37272" download="eager" />
+    <jar href="ini4j-0.5.2.jar" size="101578" download="eager" />
+    <jar href="jcommander-1.29.jar" size="56533" download="eager" />
+    <jar href="jetty-websocket-8.1.8.jar" size="125727" download="eager" />
+    <jar href="jna-3.4.0.jar" size="1006639" download="eager" />
+    <jar href="jna-platform-3.4.0.jar" size="913435" download="eager" />
+    <jar href="jsoup-1.8.2.jar" size="314991" download="eager" />
+    <jar href="junit-dep-4.11.jar" size="245039" download="eager" />
+    <jar href="nekohtml-1.9.21.jar" size="125150" download="eager" />
+    <jar href="netty-3.5.7.Final.jar" size="1106629" download="eager" />
+    <jar href="operadriver-1.5.jar" size="4063471" download="eager" />
+    <jar href="phantomjsdriver-1.2.1.jar" size="10702" download="eager" />
+    <jar href="protobuf-java-2.4.1.jar" size="450284" download="eager" />
+    <jar href="sac-1.3.jar" size="15808" download="eager" />
+    <jar href="selenium-java-2.45.0.jar" size="3898959" download="eager" />
+    <jar href="serializer-2.7.1.jar" size="278281" download="eager" />
+    <jar href="testng-6.8.5.jar" size="835600" download="eager" />
+    <jar href="theranos_center_counter.jar" size="16984" download="eager" />
+    <jar href="xalan-2.7.1.jar" size="3176148" download="eager" />
+    <jar href="xercesImpl-2.11.0.jar" size="1367760" download="eager" />
+    <jar href="xml-apis-1.4.01.jar" size="220536" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="theranos_counter.Main"  name="theranos-center-counter" />
+  <update check="background"/>
+</jnlp>
