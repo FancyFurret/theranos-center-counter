@@ -24,6 +24,16 @@
                     <bottom>
                         <VBox alignment="BOTTOM_CENTER" spacing="10">
                             <padding><Insets top="25" bottom="25"/></padding>
+                            <Label text="New centers:">
+                                <font>
+                                    <Font size="25"/>
+                                </font>
+                            </Label>
+                            <Label fx:id="newCenters">
+                                <font>
+                                    <Font size="125"/>
+                                </font>
+                            </Label>
                             <Label text="Total centers:">
                                 <font>
                                     <Font size="25"/>

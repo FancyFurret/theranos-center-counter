@@ -30,7 +30,7 @@ public class Main extends Application {
 
     public Stage primaryStage;
 
-    String fileName = "savedCount";
+    String fileName = "previousdata";
 
     boolean newFile = false;
 

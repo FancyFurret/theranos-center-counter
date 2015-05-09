@@ -24,6 +24,7 @@ public class Controller_main implements Initializable {
     public Hyperlink hyperlink;
     public Label total;
     public Label oldTotal;
+    public Label newCenters;
 
     private CenterData centerData;
 
@@ -70,10 +71,11 @@ public class Controller_main implements Initializable {
                 stateItem.getChildren().add(cityItem);
             }
             rootItem.getChildren().add(stateItem);
-            stateItem.setExpanded(true);
+            //stateItem.setExpanded(true);
         }
         treeView.setRoot(rootItem);
         total.setText(String.valueOf(data.getTotal()));
+        newCenters.setText(String.valueOf(data.getTotal() - oldData.getTotal()));
         oldTotal.setText("Previously, the total was: " + String.valueOf(oldData.getTotal()));
     }
 
