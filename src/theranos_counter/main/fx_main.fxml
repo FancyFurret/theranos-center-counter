@@ -34,6 +34,9 @@
                                     <Font size="125"/>
                                 </font>
                             </Label>
+                            <Label fx:id="oldTotal">
+
+                            </Label>
                         </VBox>
                     </bottom>
                 </BorderPane>

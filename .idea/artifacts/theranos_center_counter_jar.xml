@@ -3,9 +3,12 @@
     <output-path>$PROJECT_DIR$/out/artifacts/theranos_center_counter_jar</output-path>
     <root id="archive" name="theranos-center-counter.jar">
       <element id="module-output" name="theranos-center-counter" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/selenium-java-2.45.0.jar" path-in-jar="/" />
-      <element id="library" level="project" name="selenium-java-2.45.0-srcs" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/com.springsource.com.fasterxml.jackson.core.jackson-core-2.0.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/jsoup-1.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/com.springsource.com.fasterxml.jackson.core.jackson-annotations-2.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/selenium-java-2.45.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/com.springsource.com.fasterxml.jackson.core.jackson-databind-2.0.2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="selenium-java-2.45.0-srcs" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/libs/sac-1.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/libs/bsh-1.3.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/libs/jna-3.4.0.jar" path-in-jar="/" />

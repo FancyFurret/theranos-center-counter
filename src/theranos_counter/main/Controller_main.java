@@ -23,6 +23,7 @@ public class Controller_main implements Initializable {
     public Label addressLine2;
     public Hyperlink hyperlink;
     public Label total;
+    public Label oldTotal;
 
     private CenterData centerData;
 
@@ -47,23 +48,23 @@ public class Controller_main implements Initializable {
         });
     }
 
-    public void refresh(CenterData data) {
+    public void refresh(CenterData data, CenterData oldData) {
         centerData = data;
 
-        TreeItem<String> rootItem = new TreeItem<>("States" + getTotalStr(data.getTotal()));
+        TreeItem<String> rootItem = new TreeItem<>(getInfo(data.getTotal() - oldData.getTotal()) + "States" + getTotalStr(data.getTotal()));
         rootItem.setExpanded(true);
 
         for (State state : data.states)
         {
-            TreeItem<String> stateItem = new TreeItem<>(state.name + getTotalStr(data.getTotalFrom(state)));
+            TreeItem<String> stateItem = new TreeItem<>(getInfo(data.getTotalFrom(state) - oldData.getTotalFrom(state)) + state.name + getTotalStr(data.getTotalFrom(state)));
 
             for (City city : state.cities)
             {
-                TreeItem<String> cityItem = new TreeItem<>(city.name + getTotalStr(data.getTotalFrom(city)));
+                TreeItem<String> cityItem = new TreeItem<>(getInfo(data.getTotalFrom(city) - oldData.getTotalFrom(city)) + city.name + getTotalStr(data.getTotalFrom(city)));
 
                 for (Address address : city.addresses)
                 {
-                    TreeItem<String> addressItem = new TreeItem<>(address.name);
+                    TreeItem<String> addressItem = new TreeItem<>(getInfo(!oldData.contains(address)) + address.name);
                     cityItem.getChildren().add(addressItem);
                 }
                 stateItem.getChildren().add(cityItem);
@@ -72,8 +73,27 @@ public class Controller_main implements Initializable {
             stateItem.setExpanded(true);
         }
         treeView.setRoot(rootItem);
-
         total.setText(String.valueOf(data.getTotal()));
+        oldTotal.setText("Previously, the total was: " + String.valueOf(oldData.getTotal()));
+    }
+
+    private String getInfo(int difference)
+    {
+        System.out.println(difference);
+        if (difference > 0)
+            return "(+" + difference + ") ";
+        else if (difference < 0)
+            return "(" + difference + ") ";
+        else
+            return "";
+    }
+
+    private String getInfo(boolean bool)
+    {
+        if (bool)
+            return "(+) ";
+        else
+            return "";
     }
 
     private String getTotalStr(int i)

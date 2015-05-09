@@ -1,15 +1,15 @@
 package theranos_counter.about;
 
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import theranos_counter.Main;
 
 public class Controller_about {
 
@@ -18,6 +18,7 @@ public class Controller_about {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("About");
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("theranos_icon.png")));
 
         Label title = new Label("About");
         title.setFont(Font.font(30));

@@ -3,10 +3,14 @@ package theranos_counter.preloader;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.geometry.Pos;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import theranos_counter.Main;
 
 public class Preloader {
 
@@ -36,6 +40,7 @@ public class Preloader {
         loadStage.setMinWidth(250);
         loadStage.setMaxHeight(100);
         loadStage.setMaxWidth(250);
+        loadStage.getIcons().add(new Image(Main.class.getResourceAsStream("theranos_icon.png")));
         loadStage.show();
     }
 

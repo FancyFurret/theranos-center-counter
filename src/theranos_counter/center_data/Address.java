@@ -1,8 +1,11 @@
 package theranos_counter.center_data;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * Created by Forrest on 5/7/2015.
  */
+@JsonSerialize
 public class Address {
     public String name;
     public String city;
@@ -17,4 +20,10 @@ public class Address {
         this.zip = zip;
         this.url = url;
     }
+
+    public Address()
+    {
+
+    }
+
 }
